@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --open",
+    "start": "webpack-dev-server",
     "build": "webpack",
     "watch": "webpack --progress --watch"
   },
@@ -15,6 +15,7 @@
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
     "babel-preset-env": "^1.1.7",
+    "expose-loader": "^0.7.1",
     "script-loader": "^0.7.0",
     "webpack": "^2.2.0-rc.3",
     "webpack-dev-server": "^1.16.2"

@@ -1,12 +1,12 @@
 
 var path = require('path');
-var webpack = require('webpack');
+// var webpack = require('webpack');
 
 // Phaser webpack config
 var phaserModule = path.join(__dirname, '/node_modules/phaser-ce/')
-var phaser = path.join(phaserModule, 'build/custom/phaser-split.js')
-var pixi = path.join(phaserModule, 'build/custom/pixi.js')
-var p2 = path.join(phaserModule, 'build/custom/p2.js')
+var phaser = path.join(phaserModule, 'build/custom/phaser-split.min.js')
+var pixi = path.join(phaserModule, 'build/custom/pixi.min.js')
+var p2 = path.join(phaserModule, 'build/custom/p2.min.js')
 
 
 module.exports = {
@@ -21,10 +21,22 @@ module.exports = {
     compress: true,
     port: 8088
   },
-  devtool: 'cheap-source-map',
+  devtool: 'inline-source-map',
+  resolve: {
+    alias: {
+      Phaser: phaser,
+      PIXI: pixi,
+      p2: p2,
+      
+      // SafeSpot: components+'SafeSpot.js',
+    }
+  },
   module: {
-    loaders: [
-      { test: /\.js$/, loader: 'babel-loader' },
+    rules: [
+      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
+      { test: pixi, loader: 'expose-loader?PIXI' },
+      { test: phaser, loader: 'expose-loader?Phaser' },
+      { test: p2, loader: 'expose-loader?p2' },
     ]
   },
 };

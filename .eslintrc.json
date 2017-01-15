@@ -1,0 +1,52 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "globals": {
+    "Phaser": true,
+    "PIXI": true,
+    "p2": true
+  },
+  "rules": {
+    "no-cond-assign": "warn",
+    "no-const-assign": "warn",
+    "no-invalid-regexp": "warn",
+    "no-this-before-super": "warn",
+    "no-undef": "warn",
+    "no-unreachable": "warn",
+    "no-unused-vars": "warn",
+    "constructor-super": "warn",
+    "valid-typeof": "warn",
+    "valid-jsdoc": "warn",
+    "curly": "warn",
+    "eqeqeq": "error",
+    "dot-location": [
+      "error",
+      "property"
+    ],
+    // "semi": "warn",
+    "no-extra-semi": "error",
+    "array-bracket-spacing": [
+      "warn",
+      "always",
+      { "singleValue": false }
+    ],
+    "brace-style": [
+      "error",
+      "stroustrup",
+      {"allowSingleLine": true}
+    ],
+    "no-useless-rename": [
+      "error",{
+      "ignoreDestructuring": false,
+      "ignoreImport": false,
+      "ignoreExport": false
+    }]
+  }
+}
