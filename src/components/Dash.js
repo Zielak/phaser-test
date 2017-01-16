@@ -44,13 +44,27 @@ export default class Dash {
 
 
   update(elapsed){
-    this.timeSpent += elapsed;
+
+    if (game.time.now > bulletTime){
+      bullet = bullets.getFirstExists(false);
+
+      if (bullet){
+        bullet.reset(sprite.x + 6, sprite.y - 8);
+        bullet.body.velocity.y = -300;
+        bulletTime = game.time.now + 250;
+      }
+    }
+
+    // Analytics?
+    if(this.active){
+      this.timeSpent += elapsed;
+    }
 
     /**
      * Dashing cooldowns
      */
     if(this.cooldown > 0){
-      this.cooldown -= this.regenCD*elapsed;
+      this.cooldown -= this.regenCD * elapsed;
     }
     else if(this.cooldown < 0){
       this.cooldown = 0;

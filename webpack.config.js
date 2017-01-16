@@ -3,10 +3,10 @@ var path = require('path');
 // var webpack = require('webpack');
 
 // Phaser webpack config
-var phaserModule = path.join(__dirname, '/node_modules/phaser-ce/')
-var phaser = path.join(phaserModule, 'build/custom/phaser-split.min.js')
-var pixi = path.join(phaserModule, 'build/custom/pixi.min.js')
-var p2 = path.join(phaserModule, 'build/custom/p2.min.js')
+var phaserModule = path.join(__dirname, '/node_modules/phaser-ce/');
+var phaser = path.join(phaserModule, 'build/custom/phaser-split.min.js');
+var pixi = path.join(phaserModule, 'build/custom/pixi.min.js');
+var p2 = path.join(phaserModule, 'build/custom/p2.min.js');
 
 
 module.exports = {
