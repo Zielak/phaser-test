@@ -46,16 +46,16 @@ export default class Player extends Phaser.Sprite {
     this.deathCamTime = 0.7;
 
     // Input seetup
-    // this._up = undefined;
-    // this._down = undefined;
-    // this._left = undefined;
-    // this._right = undefined;
-    // this._A = undefined;
+    this._up = undefined;
+    this._down = undefined;
+    this._left = undefined;
+    this._right = undefined;
+    this._A = undefined;
 
     /**
      * DASHING
      */
-    this.dash = new Dash();
+    this.dash = new Dash( { game } );
 
     this.dash.onStartDash.add(()=>{
       // dashS.play();
@@ -88,10 +88,10 @@ export default class Player extends Phaser.Sprite {
 
   setupKeys(){
     //  Register the keys.
-    this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    this.leftKey  = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-    this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
-    this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+    this.upKey    = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+    this.downKey  = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
 
     this.spaceKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
   }
@@ -218,21 +218,21 @@ export default class Player extends Phaser.Sprite {
   }
 
   updateKeys(){
-    // if(!this.dash.active){
-    //   this._up = this.input.up.isDown;
-    //   this._down = this.input.down.isDown;
-    //   this._left = this.input.left.isDown;
-    //   this._right = this.input.right.isDown;
+    if(!this.dash.active){
+      this._up = this.upKey.isDown;
+      this._down = this.downKey.isDown;
+      this._left = this.leftKey.isDown;
+      this._right = this.rightKey.isDown;
 
-    //   this._A = this.game.input.keyboard.isDown( Phaser.KeyCode.SPACEBAR );
-    // }
+      this._A = this.spaceKey.isDown;
+    }
   }
 
-  get _up(){ return this.upKey.isDown; }
-  get _down(){ return this.downKey.isDown; }
-  get _left(){ return this.leftKey.isDown; }
-  get _right(){ return this.rightKey.isDown; }
-  get _A(){ return this.spaceKey.isDown; }
+  // get _up(){ return this.upKey.isDown; }
+  // get _down(){ return this.downKey.isDown; }
+  // get _left(){ return this.leftKey.isDown; }
+  // get _right(){ return this.rightKey.isDown; }
+  // get _A(){ return this.spaceKey.isDown; }
   get _anyDir(){
     return this._up || this._down || this._left || this._right;
   }

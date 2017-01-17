@@ -1,7 +1,10 @@
 
 export default class Dash {
   
-  constructor(){
+  constructor({game}){
+
+    this.game = game;
+
     // old "dashing" property
     this.active = false;
     // old "canDash" property
@@ -10,25 +13,33 @@ export default class Dash {
     // How fast you go while dashing
     this.speed = 750;
 
-    // Current cooldown of dashing
-    this.cooldown = 0;
+
+    // Current timer for dashing
+    this.time = 0;
 
     // How long can you dash
-    this.time = 0.18;
+    this.maxDashTime = 0.18 * 1000;
 
     // Added when you keep holding dash key
-    this.timeMore = 0.01;
+    this.timeMore = 0.01 * 1000;
 
     this.addedMoreTime = false;
 
-    // How long can you dash?
-    this.timeLeft = 0;
 
-    this.maxCD = 1;
-    this.regenCD = 1;
+
+    // Current cooldown of dashing
+    this.cooldown = 0;
+
+    // Maximum time for dash regeneration
+    this.maxCD = 1000;
+
+
+
 
     // Prevent getting stuck by counting bounce times
     this.bounceCount = 0;
+
+
 
     // Time spent while dashing (in air), resets upon landing
     this.timeSpent = 0;
@@ -45,15 +56,7 @@ export default class Dash {
 
   update(elapsed){
 
-    if (game.time.now > bulletTime){
-      bullet = bullets.getFirstExists(false);
-
-      if (bullet){
-        bullet.reset(sprite.x + 6, sprite.y - 8);
-        bullet.body.velocity.y = -300;
-        bulletTime = game.time.now + 250;
-      }
-    }
+    // console.log('elapsed: ',elapsed);
 
     // Analytics?
     if(this.active){
@@ -63,21 +66,19 @@ export default class Dash {
     /**
      * Dashing cooldowns
      */
-    if(this.cooldown > 0){
-      this.cooldown -= this.regenCD * elapsed;
+    if(this.cooldown >= 0){
+      this.cooldown -= elapsed;
     }
-    else if(this.cooldown < 0){
-      this.cooldown = 0;
-      this.available = true;
+    else if(this.cooldown < 0 && !this.available){
+      this.reset();
     }
 
     // Keeps dashing speed until duration is over
     if( this.active ){
-      if( this.timeLeft > 0 ){
-        this.timeLeft -= elapsed;
-
-        // if( this.dashtimeLeft <= 0 && _A && !this.dashaddedMoreTime ){
-        //   this.dashtimeLeft += this.dashtimeMore;
+      if( this.time > 0 ){
+        this.time -= elapsed;
+        // if( this.stopDashtimeLeft <= 0 && _A && !this.dashaddedMoreTime ){
+        //   this.stopDashtimeLeft += this.stopDashtimeMore;
         //   this.dashaddedMoreTime = true;
         //   // trace("added more time for dash");
         // }
@@ -90,11 +91,13 @@ export default class Dash {
 
   start(){
 
+    // console.log('Dash: start()');
+
     this.active = true;
     this.available = false;
     this.addedMoreTime = false;
+    this.time = this.maxDashTime;
     this.cooldown = this.maxCD;
-    this.timeLeft = this.time;
 
     this.onStartDash.dispatch();
 
@@ -103,7 +106,10 @@ export default class Dash {
 
   stop(){
 
+    // console.log('Dash: stop()');
+
     this.active = false;
+    this.time = 0;
     this.timeSpent = 0;
     this.bounceCount = 0;
     this.dashLog = [];
@@ -111,6 +117,14 @@ export default class Dash {
     this.onStopDash.dispatch();
 
     return this;
+  }
+
+  reset(){
+
+    // console.log('Dash: reset()');
+
+    this.cooldown = 0;
+    this.available = true;
   }
 
 }
