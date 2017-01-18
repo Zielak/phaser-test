@@ -1,4 +1,9 @@
 
+import Console from '../utils/Console';
+
+var console = Object.create(Console);
+console.init('Dash: ');
+
 export default class Dash {
   
   constructor({game}){
@@ -91,7 +96,7 @@ export default class Dash {
 
   start(){
 
-    // console.log('Dash: start()');
+    console.log('start()');
 
     this.active = true;
     this.available = false;
@@ -106,7 +111,7 @@ export default class Dash {
 
   stop(){
 
-    // console.log('Dash: stop()');
+    console.log('stop()');
 
     this.active = false;
     this.time = 0;
@@ -121,7 +126,7 @@ export default class Dash {
 
   reset(){
 
-    // console.log('Dash: reset()');
+    console.log('reset()');
 
     this.cooldown = 0;
     this.available = true;
