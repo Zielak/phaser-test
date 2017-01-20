@@ -1,14 +1,14 @@
 
+import Component from '../Component';
 import Console from '../utils/Console';
 
 var console = Object.create(Console);
-console.init('Dash: ');
+console.init('Dash');
 
-export default class Dash {
+export default class Dash extends Component{
   
-  constructor({game}){
-
-    this.game = game;
+  constructor(){
+    super(arguments[0]);
 
     // old "dashing" property
     this.active = false;
@@ -60,6 +60,12 @@ export default class Dash {
 
 
   update(elapsed){
+    let input = this.get('input');
+    // Dash if we can
+    if(input.A && !this.dash.active && this.dash.available &&
+      (input.up || input.down || input.left || input.right)) {
+      this.startDashing();
+    }
 
     // console.log('elapsed: ',elapsed);
 

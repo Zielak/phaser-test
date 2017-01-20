@@ -3,7 +3,9 @@ import 'Phaser';
 
 import SafeSpot from '../components/SafeSpot';
 import Dash from '../components/Dash';
-
+import Walk from '../components/Walk';
+import Components from '../Components';
+import InputPlayer from '../components/InputPlayer';
 
 export default class Player extends Phaser.Sprite {
 
@@ -36,26 +38,25 @@ export default class Player extends Phaser.Sprite {
     /**
      * Init variables
      */
-    // Current speed, manipulated during play by eg. Dashing
-    this.speed = 0;
-    this.speedLerp = 0.2;
+    this.components = new Components(this);
+    
+    this.input = new InputPlayer({
+      game: this.game,
+      name: 'input',
+    });
+    this.components.add(this.input);
 
-    // Maximum "walking" speed
-    this.moveSpeed = 200;
-    this.moveAngle = 0;
-    this.deathCamTime = 0.7;
+    this.walk = new Walk({
+      game: this.game,
+      name: 'walk',
+    });
+    this.components.add(this.walk);
 
-    // Input seetup
-    this._up = undefined;
-    this._down = undefined;
-    this._left = undefined;
-    this._right = undefined;
-    this._A = undefined;
-
-    /**
-     * DASHING
-     */
-    this.dash = new Dash( { game } );
+    this.dash = new Dash({
+      game: this.game,
+      name: 'dash',
+    });
+    this.components.add(this.dash);
 
     this.dash.onStartDash.add(()=>{
       // dashS.play();
@@ -81,28 +82,16 @@ export default class Player extends Phaser.Sprite {
     this.onVoid = false;
 
 
-    this.setupKeys();
 
     return this;
   }
 
-  setupKeys(){
-    //  Register the keys.
-    this.leftKey  = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-    this.rightKey = this.game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-    this.upKey    = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
-    this.downKey  = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-
-    this.spaceKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-  }
-
   update(){
+
+    this.components.update();
 
     if(this.alive && !this.reviving){
 
-      this.dash.update( this.game.time.elapsed );
-      this.updateKeys();
-      this.updateMovement();
       this.updateSafeSpot();
 
     }
@@ -124,33 +113,6 @@ export default class Player extends Phaser.Sprite {
     return this;
   }
 
-  updateMovement(){
-
-    if( !this.dash.active && this._anyDir ){
-      this.speed = this.moveSpeed;
-    }
-
-    // Move player forward, when dashing and not
-    this.move();
-
-    // Dash if we can
-    if(this._A && !this.dash.active && this.dash.available &&
-      (this._up || this._down || this._left || this._right)) {
-      this.startDashing();
-    }
-
-    // Update animations
-    // updateAnimation();
-
-    /**
-     * Position fixer
-     */
-    // if(!this.dash.active){
-    //   x = Math.round( x );
-    //   y = Math.round( y );
-    // }
-
-  }
 
   startDashing(){
     this.dash.start();
@@ -160,81 +122,10 @@ export default class Player extends Phaser.Sprite {
 
 
 
-
-  /**
-   * Update movement, move forward even when dashing
-   * 
-   * @memberOf Player
-   */
-  move() {
-
-    if(!this.dash.active){
-
-      if (this._up && this._down){
-        this._up = this._down = false;
-      }
-      if (this._left && this._right){
-        this._left = this._right = false;
-      }
-
-      if (this._up || this._down || this._left || this._right){
-
-        if (this._up){
-          this.moveAngle = -90;
-          if (this._left){
-            this.moveAngle -= 45;
-          }
-          else if (this._right){
-            this.moveAngle += 45;
-          }
-        }
-        else if (this._down){
-          this.moveAngle = 90;
-          if (this._left){
-            this.moveAngle += 45;
-          }
-          else if (this._right){
-            this.moveAngle -= 45;
-          }
-        }
-        else if (this._left){
-          this.moveAngle = -180;
-        }
-        else if (this._right){
-          this.moveAngle = 0;
-        }
-
-        this.body.velocity.x = this.speed;
-        this.body.velocity.y = 0;
-        this.body.velocity.rotate(0, 0, this.moveAngle, true);
-      }
-      else{
-        this.body.velocity = Phaser.Point.interpolate( this.body.velocity, {x:0, y:0}, this.speedLerp );
-      }
-    }
-    else{
-      this.body.velocity.setMagnitude( this.speed );
-    }
-  }
-
   updateKeys(){
-    if(!this.dash.active){
-      this._up = this.upKey.isDown;
-      this._down = this.downKey.isDown;
-      this._left = this.leftKey.isDown;
-      this._right = this.rightKey.isDown;
-
-      this._A = this.spaceKey.isDown;
-    }
-  }
-
-  // get _up(){ return this.upKey.isDown; }
-  // get _down(){ return this.downKey.isDown; }
-  // get _left(){ return this.leftKey.isDown; }
-  // get _right(){ return this.rightKey.isDown; }
-  // get _A(){ return this.spaceKey.isDown; }
-  get _anyDir(){
-    return this._up || this._down || this._left || this._right;
+    // if(!this.dash.active && this.components.has('input')){
+    //   this.input.update();
+    // }
   }
 
 

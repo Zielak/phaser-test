@@ -22,6 +22,14 @@ class Game extends Phaser.Game {
 
     this.state.start('Splash');
   }
+
+  create(){
+
+    this.time.advancedTiming = true;
+    this.time.desiredFps = 60;
+    this.time.slowMotion = 1.0
+
+  }
 }
 
 window.game = new Game();

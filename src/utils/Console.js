@@ -8,32 +8,32 @@
   import Console from '../utils/Console';
 
   var console = Object.create(Console);
-  console.init('Dash: ');
+  console.init('Dash');
   // ...
   console.log('siema');
  *
  */
 export default {
 
-  init( prefix ){
-    this.prefix = prefix;
-
+  init( name ){
+    this.name = name;
+    this.prefix = this.name + ': ';
   },
   
   log(){
-    window.console.log.apply(this, [ this.prefix, ...arguments] );
+    window.console.log.apply(this, [ this.prefix, ...arguments ] );
   },
 
   warn(){
-    window.console.warn.apply(this, [ this.prefix, ...arguments] );
+    window.console.warn.apply(this, [ this.prefix, ...arguments ] );
   },
 
   error(){
-    window.console.error.apply(this, [ this.prefix, ...arguments] );
+    window.console.error.apply(this, [ this.prefix, ...arguments ] );
   },
   
   info(){
-    window.console.info.apply(this, [ this.prefix, ...arguments] );
+    window.console.info.apply(this, [ this.prefix, ...arguments ] );
   }
 
 };
