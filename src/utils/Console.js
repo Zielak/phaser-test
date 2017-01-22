@@ -18,22 +18,31 @@ export default {
   init( name ){
     this.name = name;
     this.prefix = this.name + ': ';
+    this.enabled = true;
   },
   
   log(){
-    window.console.log.apply(this, [ this.prefix, ...arguments ] );
+    if(this.enabled){
+      window.console.log.apply(this, [ this.prefix, ...arguments ] );
+    }
   },
 
   warn(){
-    window.console.warn.apply(this, [ this.prefix, ...arguments ] );
+    if(this.enabled){
+      window.console.warn.apply(this, [ this.prefix, ...arguments ] );
+    }
   },
 
   error(){
-    window.console.error.apply(this, [ this.prefix, ...arguments ] );
+    if(this.enabled){
+      window.console.error.apply(this, [ this.prefix, ...arguments ] );
+    }
   },
   
   info(){
-    window.console.info.apply(this, [ this.prefix, ...arguments ] );
+    if(this.enabled){
+      window.console.info.apply(this, [ this.prefix, ...arguments ] );
+    }
   }
 
 };

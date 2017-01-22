@@ -1,17 +1,17 @@
 
-import Component from '../Component';
+import DG_Component from '../Component';
 import Console from '../utils/Console';
 
 var console = Object.create(Console);
 console.init('Walk');
 
-export default class Walk extends Component {
+export default class Walk extends DG_Component {
 
   constructor(){
     super(arguments[0]);
 
       // speeds
-    this.maxWalkSpeed = 200;
+    this.maxWalkSpeed = 200; //200;
 
     this.accel_rate = 14.25;
     this.decel_rate = 42.75;
@@ -26,16 +26,21 @@ export default class Walk extends Component {
     this._angleDistBackward;
     this._endAngle;
 
+    this._velocity = new Phaser.Point(0,0);
+
   }
 
   onadded(){
-    this._speed = this.entity.body.velocity.getMagnitude();
+    // if(!this.entity.body){
+    //   return;
+    // }
+    // this._speed = this.entity.body.velocity.getMagnitude();
 
-    if(this._speed > this.maxWalkSpeed){
-      this._speed = this.maxWalkSpeed;
-    }
+    // if(this._speed > this.maxWalkSpeed){
+    //   this._speed = this.maxWalkSpeed;
+    // }
 
-    this._angle = this.entity.body.velocity.angle({x:0,y:0}, true);
+    // this._angle = this.entity.body.velocity.angle({x:0,y:0}, true);
   }
 
 
@@ -45,22 +50,27 @@ export default class Walk extends Component {
 
     this._angle = this.get('input').angle;
 
-    this.entity.body.velocity.set( this._speed, 0 );
+    // Speed
+    this._velocity.x = this._speed;
+    this._velocity.y = 0;
 
-    // if(_angle != -1 && _speed > 0) angle = _angle;
+    // Angle
     if( this._angle !== -1 && this._speed > 0){
-      this.entity.body.velocity.rotate(0, 0, this._angle);
+      this._velocity.rotate(0, 0, this._angle);
     }
+
+    this.entity.body.velocity.x = this._velocity.x;
+    this.entity.body.velocity.y = this._velocity.y;
 
   }
 
 
-  setSpeed(dt){
+  setSpeed(){
 
     if( this.get('input').movePressed ){
 
       if( this._speed < this.maxWalkSpeed ){
-        this._speed += this.maxWalkSpeed * this.accel_rate * dt;
+        this._speed += this.maxWalkSpeed * this.accel_rate;
       }
 
       if( this._speed > this.maxWalkSpeed ){
@@ -70,7 +80,7 @@ export default class Walk extends Component {
     else{
 
       if( this._speed >= 1){
-        this._speed -= this._speed * this.decel_rate * dt;
+        this._speed -= this._speed * this.decel_rate;
       }
 
       if( this._speed < 1 ){

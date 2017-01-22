@@ -16,8 +16,6 @@ export default class extends Phaser.State {
     banner.smoothed = false;
     banner.anchor.setTo(0.5);
 
-    this.game.physics.startSystem(Phaser.Physics.ARCADE);
-
 
     this.player = new Player({
       game: this.game,
@@ -27,9 +25,13 @@ export default class extends Phaser.State {
     });
 
     this.game.add.existing(this.player);
+    this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
   }
+
+  // update() {}
 
   render () {
     this.game.debug.spriteInfo(this.player, 32, 32);
+    this.game.debug.bodyInfo(this.player, 32, 128);
   }
 }

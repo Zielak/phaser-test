@@ -4,7 +4,7 @@ import 'Phaser';
 import SafeSpot from '../components/SafeSpot';
 import Dash from '../components/Dash';
 import Walk from '../components/Walk';
-import Components from '../Components';
+import DG_Components from '../Components';
 import InputPlayer from '../components/InputPlayer';
 
 export default class Player extends Phaser.Sprite {
@@ -25,20 +25,12 @@ export default class Player extends Phaser.Sprite {
 
     this.game = game;
 
-    this.game.physics.arcade.enable(this);
-
     this.anchor.setTo(0.5);
-
-    /**
-     * Init input
-     */
-    this.input = this.game.input.keyboard.createCursorKeys();
-
 
     /**
      * Init variables
      */
-    this.components = new Components(this);
+    this.components = new DG_Components(this);
     
     this.input = new InputPlayer({
       game: this.game,
@@ -67,10 +59,10 @@ export default class Player extends Phaser.Sprite {
     }, this);
 
     this.dash.onStopDash.add(()=>{
-      this.speed = this.moveSpeed;
+      // this.speed = this.moveSpeed;
       
-      this.body.velocity.x *= 0.2;
-      this.body.velocity.y *= 0.2;
+      // this.body.velocity.x *= 0.2;
+      // this.body.velocity.y *= 0.2;
     }, this);
 
 
@@ -98,8 +90,6 @@ export default class Player extends Phaser.Sprite {
 
     // Reset this one every frame
     this.onVoid = false;
-
-    return this;
   }
 
   updateSafeSpot(){

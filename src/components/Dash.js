@@ -1,11 +1,11 @@
 
-import Component from '../Component';
+import DG_Component from '../Component';
 import Console from '../utils/Console';
 
 var console = Object.create(Console);
-console.init('Dash');
+// console.init('Dash');
 
-export default class Dash extends Component{
+export default class Dash extends DG_Component{
   
   constructor(){
     super(arguments[0]);
@@ -23,10 +23,10 @@ export default class Dash extends Component{
     this.time = 0;
 
     // How long can you dash
-    this.maxDashTime = 0.18 * 1000;
+    this.maxDashTime = 0.18;
 
     // Added when you keep holding dash key
-    this.timeMore = 0.01 * 1000;
+    this.timeMore = 0.01;
 
     this.addedMoreTime = false;
 
@@ -36,7 +36,7 @@ export default class Dash extends Component{
     this.cooldown = 0;
 
     // Maximum time for dash regeneration
-    this.maxCD = 1000;
+    this.maxCD = 1;
 
 
 
@@ -62,9 +62,9 @@ export default class Dash extends Component{
   update(elapsed){
     let input = this.get('input');
     // Dash if we can
-    if(input.A && !this.dash.active && this.dash.available &&
+    if(input.A && !this.active && this.available &&
       (input.up || input.down || input.left || input.right)) {
-      this.startDashing();
+      this.start();
     }
 
     // console.log('elapsed: ',elapsed);

@@ -4,10 +4,11 @@ var path = require('path');
 
 // Phaser webpack config
 var phaserModule = path.join(__dirname, '/node_modules/phaser-ce/');
-var phaser = path.join(phaserModule, 'build/custom/phaser-split.min.js');
+var phaser = path.join(phaserModule, 'build/custom/phaser-split.js');
 var pixi = path.join(phaserModule, 'build/custom/pixi.min.js');
 var p2 = path.join(phaserModule, 'build/custom/p2.min.js');
 
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/app.js',
@@ -39,4 +40,10 @@ module.exports = {
       { test: p2, loader: 'expose-loader?p2' },
     ]
   },
+  plugins: [
+    new CopyWebpackPlugin([
+      // Copy directory contents to {output}/to/directory/
+      { from: 'assets', to: 'assets' },
+    ]),
+  ]
 };

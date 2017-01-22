@@ -3,7 +3,6 @@ import 'PIXI';
 import 'p2';
 import 'Phaser';
 
-// import BootState from './states/Boot'
 import SplashState from './states/Splash';
 import GameState from './states/Game';
 
@@ -25,9 +24,12 @@ class Game extends Phaser.Game {
 
   create(){
 
-    this.time.advancedTiming = true;
-    this.time.desiredFps = 60;
-    this.time.slowMotion = 1.0
+    // this.time.advancedTiming = true;
+    // this.time.desiredFps = 60;
+    // this.time.slowMotion = 1.0
+
+    this.renderer.roundPixels = true;
+    this.physics.startSystem(Phaser.Physics.ARCADE);
 
   }
 }
