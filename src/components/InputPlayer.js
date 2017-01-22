@@ -1,6 +1,6 @@
 
 import 'Phaser';
-import DG_Component from '../Component';
+import Component from '../Component';
 import Console from '../utils/Console';
 
 var console = Object.create(Console);
@@ -10,7 +10,7 @@ console.init('InputPlayer');
 var MOVE_AXIS_X = 0;
 var MOVE_AXIS_Y = 0;
 
-export default class InputPlayer extends DG_Component {
+export default class InputPlayer extends Component {
 
   constructor(){
     super(arguments[0]);
@@ -88,7 +88,7 @@ export default class InputPlayer extends DG_Component {
       this.direction.x = 1;
       this.direction.rotate(0,0,this.angle);
       
-      console.log('move pressed!');
+      // console.log('move pressed!');
 
     }
     // else if( this._moveStick.length >= 0.15 ){

@@ -51,6 +51,8 @@ export default class Player extends Phaser.Sprite {
     this._components.add(this.dash);
 
     this.dash.onStartDash.add(()=>{
+      this._components.remove('walk');
+      
       // dashS.play();
       // foorstepsS.stop();
 
@@ -59,6 +61,7 @@ export default class Player extends Phaser.Sprite {
     }, this);
 
     this.dash.onStopDash.add(()=>{
+      this._components.add(this.walk);
       // this.speed = this.moveSpeed;
       
       // this.body.velocity.x *= 0.2;
@@ -111,12 +114,6 @@ export default class Player extends Phaser.Sprite {
   }
 
 
-
-  updateKeys(){
-    // if(!this.dash.active && this.components.has('input')){
-    //   this.input.update();
-    // }
-  }
 
 
 }

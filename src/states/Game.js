@@ -26,6 +26,15 @@ export default class extends Phaser.State {
 
     this.game.add.existing(this.player);
     this.game.physics.enable(this.player, Phaser.Physics.ARCADE);
+
+
+    this.game.renderer.roundPixels = true;
+    this.game.world.setBounds(0, 0, 1400, 1400);
+
+    this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_LOCKON);
+    this.game.camera.scale.set(2,2);
+
+    
   }
 
   // update() {}

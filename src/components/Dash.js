@@ -1,11 +1,11 @@
 
-import DG_Component from '../Component';
+import Component from '../Component';
 import Console from '../utils/Console';
 
 var console = Object.create(Console);
-// console.init('Dash');
+console.init('Dash');
 
-export default class Dash extends DG_Component{
+export default class Dash extends Component{
   
   constructor(){
     super(arguments[0]);
@@ -64,7 +64,7 @@ export default class Dash extends DG_Component{
     // Dash if we can
     if(input.A && !this.active && this.available &&
       (input.up || input.down || input.left || input.right)) {
-      this.start();
+      this.start( input.direction );
     }
 
     // console.log('elapsed: ',elapsed);
@@ -100,7 +100,7 @@ export default class Dash extends DG_Component{
     }
   }
 
-  start(){
+  start(direction){
 
     console.log('start()');
 
@@ -109,6 +109,10 @@ export default class Dash extends DG_Component{
     this.addedMoreTime = false;
     this.time = this.maxDashTime;
     this.cooldown = this.maxCD;
+
+    this.entity.body.velocity
+      .copyFrom(direction)
+      .multiply(this.speed, this.speed);
 
     this.onStartDash.dispatch();
 

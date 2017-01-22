@@ -41,14 +41,14 @@ export default class Components {
 
   remove(name){
     
-    if(!this.component.has(name)){
+    if(!this.components.has(name)){
       console.warn('trying to remove a component not found on this entity', this.entity);
       return false;
     }
 
     this.components.get(name).onremoved();
 
-    return this.components.remove(name);
+    return this.components.delete(name);
   }
 
   get(name){

@@ -14,7 +14,7 @@ class Game extends Phaser.Game {
     // let width = document.documentElement.clientWidth > 768 ? 768 : document.documentElement.clientWidth;
     // let height = document.documentElement.clientHeight > 1024 ? 1024 : document.documentElement.clientHeight;
 
-    super(600, 600, Phaser.AUTO, 'content', null);
+    super(600, 600, Phaser.WEBGL, 'content', null, false, false);
 
     this.state.add('Splash', SplashState, false);
     this.state.add('Game', GameState, false);
@@ -28,7 +28,9 @@ class Game extends Phaser.Game {
     // this.time.desiredFps = 60;
     // this.time.slowMotion = 1.0
 
-    this.renderer.roundPixels = true;
+
+
+    
     this.physics.startSystem(Phaser.Physics.ARCADE);
 
   }
