@@ -34,7 +34,7 @@ export default class Component {
 
 
   add(component){
-    return this.entity.components.add(component);
+    return this.entity._components.add(component);
   }
 
   /**
@@ -46,7 +46,7 @@ export default class Component {
    * @memberOf Component
    */
   remove(name){
-    return this.entity.components.remove(name);
+    return this.entity._components.remove(name);
   }
 
   /**
@@ -58,7 +58,7 @@ export default class Component {
    * @memberOf Component
    */
   get(name){
-    return this.entity.components.get(name);
+    return this.entity._components.get(name);
   }
 
 
@@ -71,7 +71,7 @@ export default class Component {
    * @memberOf Component
    */
   has(name){
-    return this.entity.components.has(name);
+    return this.entity._components.has(name);
   }
 
 }

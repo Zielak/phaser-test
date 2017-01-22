@@ -4,7 +4,7 @@ import 'Phaser';
 import SafeSpot from '../components/SafeSpot';
 import Dash from '../components/Dash';
 import Walk from '../components/Walk';
-import DG_Components from '../Components';
+import Components from '../Components';
 import InputPlayer from '../components/InputPlayer';
 
 export default class Player extends Phaser.Sprite {
@@ -30,25 +30,25 @@ export default class Player extends Phaser.Sprite {
     /**
      * Init variables
      */
-    this.components = new DG_Components(this);
+    this._components = new Components(this);
     
     this.input = new InputPlayer({
       game: this.game,
       name: 'input',
     });
-    this.components.add(this.input);
+    this._components.add(this.input);
 
     this.walk = new Walk({
       game: this.game,
       name: 'walk',
     });
-    this.components.add(this.walk);
+    this._components.add(this.walk);
 
     this.dash = new Dash({
       game: this.game,
       name: 'dash',
     });
-    this.components.add(this.dash);
+    this._components.add(this.dash);
 
     this.dash.onStartDash.add(()=>{
       // dashS.play();
@@ -80,7 +80,7 @@ export default class Player extends Phaser.Sprite {
 
   update(){
 
-    this.components.update();
+    this._components.update();
 
     if(this.alive && !this.reviving){
 

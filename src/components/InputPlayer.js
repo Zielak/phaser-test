@@ -26,6 +26,7 @@ export default class InputPlayer extends DG_Component {
     this.B = false;
 
     this.angle = 0;
+    this.direction = new Phaser.Point(0,0);
     this.movePressed = false;
 
 
@@ -53,6 +54,7 @@ export default class InputPlayer extends DG_Component {
     }
 
     this.movePressed = false;
+    this.direction.set(0,0);
 
     if (this.up || this.down || this.left || this.right){
 
@@ -83,6 +85,9 @@ export default class InputPlayer extends DG_Component {
         this.angle = 0;
       }
 
+      this.direction.x = 1;
+      this.direction.rotate(0,0,this.angle);
+      
       console.log('move pressed!');
 
     }
