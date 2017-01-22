@@ -6,6 +6,7 @@ import Dash from '../components/Dash';
 import Walk from '../components/Walk';
 import Components from '../Components';
 import InputPlayer from '../components/InputPlayer';
+import PlayerAnimations from '../components/animations/PlayerAnimations';
 
 export default class Player extends Phaser.Sprite {
 
@@ -28,7 +29,7 @@ export default class Player extends Phaser.Sprite {
     this.anchor.setTo(0.5);
 
     /**
-     * Init variables
+     * Init components
      */
     this._components = new Components(this);
     
@@ -49,6 +50,12 @@ export default class Player extends Phaser.Sprite {
       name: 'dash',
     });
     this._components.add(this.dash);
+
+    this.playerAnimations = new PlayerAnimations({
+      game: this.game,
+      name: 'playerAnimations'
+    });
+    this._components.add(this.playerAnimations);
 
     this.dash.onStartDash.add(()=>{
       this._components.remove('walk');
@@ -71,6 +78,8 @@ export default class Player extends Phaser.Sprite {
 
 
 
+
+
     this.safeSpot = new SafeSpot(this.position, 10);
 
 
@@ -80,6 +89,9 @@ export default class Player extends Phaser.Sprite {
 
     return this;
   }
+
+
+
 
   update(){
 
