@@ -14,7 +14,7 @@ export default class extends Phaser.State {
     //
     // load your assets
     //
-    this.load.image('player', 'assets/player.gif');
+    this.load.image('player', 'assets/player_test.gif');
   }
 
   create() {

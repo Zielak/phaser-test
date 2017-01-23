@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="3">
+ <tileset firstgid="1" name="_tileset" tilewidth="16" tileheight="16" tilecount="32" columns="8">
+  <image source="../tilesets/_tileset.gif" width="128" height="64"/>
+ </tileset>
+ <layer name="tiles" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt10EKwyAUQEFtvUDvf9luRZSmxPhTO4uBgBvNw0RzSikDHz0Gouf1r0Y9dLlfiyOi17ATPe7l6Dt/NvSIbaLH+h6vStuj6PEzPUolei07mLU/9JjrzP7QY22P9n9eN9Ejtkfp0GO+s3dBPdb0yM1zb384X61r0Y7X367oee/qmx7uguubjMZ656zoeQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAVd71zylr
+  </data>
+ </layer>
+ <objectgroup name="launchPads">
+  <object id="1" gid="9" x="144" y="272" width="16" height="16" rotation="90"/>
+ </objectgroup>
+</map>
