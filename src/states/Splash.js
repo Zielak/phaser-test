@@ -15,6 +15,17 @@ export default class extends Phaser.State {
     // load your assets
     //
     this.load.image('player', 'assets/player_test.gif');
+
+
+    /**
+     * MAPS
+     */
+    this.load.tilemap('t_first', 'assets/maps/t_first.json', null, Phaser.Tilemap.TILED_JSON);
+
+    /**
+     * TILESETS
+     */
+    this.load.image('_tileset', 'assets/tilesets/_tileset.gif');
   }
 
   create() {
