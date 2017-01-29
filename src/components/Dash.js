@@ -16,14 +16,14 @@ export default class Dash extends Component{
     this.available = true;
 
     // How fast you go while dashing
-    this.speed = 750;
+    this.speed = 300;
 
 
     // Current timer for dashing
     this.time = 0;
 
     // How long can you dash
-    this.maxDashTime = 0.18;
+    this.maxDashTime = 0.19;
 
     // Added when you keep holding dash key
     this.timeMore = 0.01;

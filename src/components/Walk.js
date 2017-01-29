@@ -11,10 +11,10 @@ export default class Walk extends Component {
     super(arguments[0]);
 
       // speeds
-    this.maxWalkSpeed = 200; //200;
+    this.maxWalkSpeed = 70;
 
-    this.accel_rate = 14.25;
-    this.decel_rate = 14;//42.75;
+    this.accel_rate = 5;
+    this.decel_rate = 15;
 
       // Temp speed for calculations
     this._speed = 0;
